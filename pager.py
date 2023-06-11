@@ -1,3 +1,7 @@
+# Pager Decoder
+# Robert Ruark
+# 2023
+
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 import numpy as np
@@ -48,15 +52,14 @@ def parse_msg(block):
         msg += chr(value)
 
     print("Message decodes in ASCII as:", msg)
-    print()
 
 # First filter the received data in Audacity and split stereo to mono keeping only one channel.
-fs, data = wavfile.read("pager3.wav")
+fs, data = wavfile.read("pager_addr4.wav")
 
 
 #Normalize amplitude to +/- 1:
 normal = data / max(data)
-print(fs)
+print("Sampling Rate: ", fs)
 plt.plot(normal, label="input")
 baud = 1200
 ppm = 0
@@ -88,5 +91,5 @@ parse_msg(bits_str)
 plt.plot(bits, label="bits")
 plt.plot(sync, label="sync")
 plt.legend(loc="upper left")
-#plt.show()
+plt.show()
 
